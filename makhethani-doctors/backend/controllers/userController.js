@@ -9,12 +9,21 @@ const LoginController =async(res,req)=>{};
 const RegisterController = async(res,req)=>{
 
     try {
+
+         const exisitingUser = await  userModel.findOne({email:req.body.email});
+
+         if(exisitingUser){
+
+            return res.status(200).send({message:`user  already exists` , success:false})
+         }
+
+         password =req.body.password;
         
     } catch (error) {
 
         console.log(error);
 
-        res.status(500).send({ success: false, message : ` Register  controller`})
+        res.status(500).send({ success: false, message : ` Register  controller ${error.message}` });
         
     }
 }
