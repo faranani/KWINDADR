@@ -2,12 +2,17 @@ const express = require('express')
 const morgan = require('morgan');
 const colors = require('colors');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 
 console.log("fara")
 
 // dotenv
 
 dotenv.config(); 
+
+// mongodb connection
+
+connectDB();
 
  // reset object 
 const app = express();
@@ -18,13 +23,7 @@ app.use(morgan('dev'));
 
 // routes 
 
-app.get('/', (req, res) => {
-
-    res.status(200).send({
-        message : "Hellow world" ,
-    })
-});
-
+app.use("/api/v1/user",require('./routes/UseRoutes'))
 
 
 // port number
